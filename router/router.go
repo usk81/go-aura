@@ -3,8 +3,10 @@ package router
 import (
 	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/go-chi/chi"
+	"go.uber.org/zap"
 
 	"github.com/usk81/go-aura/common"
 )
@@ -113,4 +115,19 @@ func buildSubroute(r *chi.Mux, sr SubRoute) (err error) {
 	}
 	r.Mount(sr.Pattern, mux)
 	return
+}
+
+// LogRoutes logs routing on Debug level when server is ONLINE
+func LogRoutes(r *chi.Mux, logger *zap.Logger) {
+	if err := chi.Walk(r, zapPrintRoute(logger)); err != nil {
+		logger.Error("Failed to walk routes:", zap.Error(err))
+	}
+}
+
+func zapPrintRoute(logger *zap.Logger) chi.WalkFunc {
+	return func(method string, route string, handler http.Handler, middlewares ...func(http.Handler) http.Handler) error {
+		route = strings.Replace(route, "/*/", "/", -1)
+		logger.Debug("Registering route", zap.String("method", method), zap.String("route", route))
+		return nil
+	}
 }
