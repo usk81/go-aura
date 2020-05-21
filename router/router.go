@@ -49,8 +49,8 @@ var methods = []string{
 	http.MethodTrace,
 }
 
-// DefaultRouter ...
-func DefaultRouter(middlewares ...func(http.Handler) http.Handler) *chi.Mux {
+// Setup a new go-chi router
+func Setup(middlewares ...func(http.Handler) http.Handler) *chi.Mux {
 	r := chi.NewRouter()
 
 	// A good base middleware stack
