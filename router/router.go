@@ -6,9 +6,8 @@ import (
 	"strings"
 
 	"github.com/go-chi/chi/v5"
+	"github.com/usk81/toolkit/slice"
 	"go.uber.org/zap"
-
-	"github.com/usk81/go-aura/common"
 )
 
 type (
@@ -96,7 +95,7 @@ func build(r *chi.Mux, rt *Route) (err error) {
 
 func buildEndpoints(r *chi.Mux, ep EndpointPattern) (err error) {
 	for method, e := range ep.Endpoints {
-		if !common.InStrings(method, methods) {
+		if !slice.Exists(method, methods) {
 			return fmt.Errorf("invalid http method : %s", method)
 		}
 		if method == "All" {
