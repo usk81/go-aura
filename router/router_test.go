@@ -286,7 +286,7 @@ func TestRoute_Build(t *testing.T) {
 			if err := rt.Build(tt.args.r); (err != nil) != tt.wantErr {
 				t.Errorf("Route.Build() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			routeDebug(tt.args.r)
+			_ = routeDebug(tt.args.r)
 		})
 	}
 }
