@@ -1,4 +1,4 @@
-module github.com/usk81/go-aura
+module github.com/usk81/go-aura/v5
 
 go 1.19
 
