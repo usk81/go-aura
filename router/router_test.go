@@ -8,7 +8,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/go-chi/chi"
+	"github.com/go-chi/chi/v5"
 )
 
 func TestRoute_Build(t *testing.T) {
@@ -286,7 +286,7 @@ func TestRoute_Build(t *testing.T) {
 			if err := rt.Build(tt.args.r); (err != nil) != tt.wantErr {
 				t.Errorf("Route.Build() error = %v, wantErr %v", err, tt.wantErr)
 			}
-			routeDebug(tt.args.r)
+			_ = routeDebug(tt.args.r)
 		})
 	}
 }
@@ -302,6 +302,6 @@ func routeDebug(r *chi.Mux) (err error) {
 	return
 }
 
-func mockHandlerFunc(w http.ResponseWriter, r *http.Request) {
+func mockHandlerFunc(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
