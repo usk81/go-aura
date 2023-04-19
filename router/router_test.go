@@ -302,6 +302,6 @@ func routeDebug(r *chi.Mux) (err error) {
 	return
 }
 
-func mockHandlerFunc(w http.ResponseWriter, r *http.Request) {
+func mockHandlerFunc(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
